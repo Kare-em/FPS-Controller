@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionController : MonoBehaviour
@@ -8,16 +10,12 @@ public class ActionController : MonoBehaviour
         {
             if (other.tag == "Player")
             {
-                BaggageController baggageController = other.gameObject.GetComponent<BaggageController>();
-                var baggage = baggageController.GetBaggage();
-                if (baggage == null)
-                {
-                    Debug.Log(baggage);
-                    baggageController.TakeBaggage(gameObject);
-                    Destroy(this);
-                }
+                PressFAction(other);
             }
-
         }
+    }
+    protected virtual void PressFAction(Collider other)
+    {
+
     }
 }

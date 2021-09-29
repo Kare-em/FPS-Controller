@@ -2,23 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Receiver : MonoBehaviour
+public class Receiver : ActionController
 {
     [SerializeField] private GameObject example;
     [SerializeField] private ScoreController scoreController;
-    private void OnTriggerStay(Collider other)
+    protected override void PressFAction(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        BaggageController baggageController = other.gameObject.GetComponent<BaggageController>();
+        var baggage = baggageController.GetBaggage();
+        if (TryReceive(baggage))
         {
-            if (other.tag == "Player")
-            {
-                BaggageController baggageController = other.gameObject.GetComponent<BaggageController>();
-                var baggage = baggageController.GetBaggage();
-                if (TryReceive(baggage))
-                {
-                    baggageController.Clear();
-                }
-            }
+            baggageController.Clear();
         }
     }
     public bool TryReceive(GameObject baggage)
